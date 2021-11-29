@@ -1,0 +1,26 @@
+.header {
+    text-align: center;
+    border: 5px solid black;
+}
+
+.bodyTipoProd, .nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border: 5px solid black;
+    margin-top: 20px;
+}
+
+.botonNav {
+    display: block;
+    background-color: aqua;
+    padding: 5px 5% 5px 5%;
+    margin: 2% 5% 2% 5%;
+}
+
+.itemTipoProducto {
+    display: block;
+    background-color: aqua;
+    padding: 5%;
+    margin: 5%;
+}
