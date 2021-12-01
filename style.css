@@ -3,7 +3,7 @@
     border: 5px solid black;
 }
 
-.bodyTipoProd, .nav {
+.bodyTipoProd, .nav, .bodyProd {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -23,4 +23,22 @@
     background-color: aqua;
     padding: 5%;
     margin: 5%;
+}
+
+table {
+    border: 2px solid black;
+    border-collapse: collapse;
+    margin: 50px;
+}
+
+tr {
+    border-bottom: 2px solid black;;
+}
+
+th {
+    background-color: aqua;
+}
+
+th, td {
+    padding: 15px 15px;
 }
