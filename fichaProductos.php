@@ -9,10 +9,32 @@
         $bd->eliminar("delete from producto where idProducto = $idProducto");
     }
 
+    function crearProducto($nombre, $tipo, $unidad, $descripcion, $pvp, $descuento) {
+        global $bd;
+        $bd->insertar("insert into producto values (" . getNuevaIdProducto() . ", '$nombre', $tipo, '$unidad', '$descripcion', $pvp, $descuento)");
+    }
+
+    function getNuevaIdProducto() {
+        global $bd;
+
+        $resNuevaId = $bd->seleccionar("select max(idProducto) from producto");
+        $nuevaId = $resNuevaId->fetch_assoc();
+
+        return $nuevaId['max(idProducto)'] + 1;
+    }
+
     if (isset($_POST['eliminar'])) {
         // Usar subStr para quitar la barra que aparece
         // al final de la id del producto.
         eliminarProducto(subStr($_POST['eliminar'], 0, -1));
+    } else if (isset($_POST['nombreNuevo'])) {
+        crearProducto(
+            $_POST['nombreNuevo'],
+            $_POST['tipoNuevo'],
+            $_POST['unidadNuevo'],
+            $_POST['descripcionNuevo'],
+            $_POST['pvpNuevo'],
+            $_POST['descuentoNuevo']);
     }
 ?>
 
@@ -33,7 +55,7 @@
             <a class="botonNav">Usuario</a>
         </div>
 
-        <div class="bodyProd">
+        <div class="content">
             <table>
                 <tr>
                     <th>Nombre</th>
@@ -62,6 +84,37 @@
                     </form>
                 <?php }?>
             </table>
+        </div>
+
+        <div class="content">
+            <form method="POST" action=<?php echo $_SERVER['PHP_SELF'];?>>
+                <label for="nombreNuevo">Nombre:</label>
+                <input type="text" id="nombreNuevo" name="nombreNuevo"/><br>
+                
+                <label for="tipoNuevo">Tipo:</label>
+                <select id="tipoNuevo" name="tipoNuevo">
+                    <?php
+                        $resTipoProd = $bd->seleccionar("select * from tipo_producto");
+                        while ($tipoProd = $resTipoProd->fetch_assoc()) {
+                    ?>
+                        <option value="<?php echo $tipoProd['idTipo_producto']?>"><?php echo $tipoProd['DescTipoProd']?></option>
+                    <?php }?>
+                </select><br>
+
+                <label for="unidadNuevo">Unidad:</label>
+                <input type="text" id="unidadNuevo" name="unidadNuevo"/><br>
+
+                <label for="descripcionNuevo">Descripci&oacute;n:</label>
+                <input type="text" id="descripcionNuevo" name="descripcionNuevo"/><br>
+
+                <label for="pvpNuevo">PVP:</label>
+                <input type="text" id="pvpNuevo" name="pvpNuevo"/><br>
+
+                <label for="descuentoNuevo">Descuento:</label>
+                <input type="text" id="descuentoNuevo" name="descuentoNuevo"/><br>
+
+                <input type="submit"/>
+            </form>
         </div>
     </body>
 </html>

@@ -22,7 +22,7 @@
             <a class="botonNav">Usuario</a>
         </div>
 
-        <div class="bodyTipoProd">
+        <div class="content">
             <?php
                 $resTipoProd = $bd->seleccionar("select * from tipo_producto");
                 while ($tipoProd = $resTipoProd->fetch_assoc()) {
